@@ -11,11 +11,12 @@ import (
 func main() {
 	router := httprouter.New()
 
+	// Projects
 	projectRepository := project.NewInMemRepository()
 	projectService := project.NewService(projectRepository)
-
 	project.InitRouters(router, projectService)
 
+	// Ping
 	router.GET("/status", func(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
 		res.WriteHeader(http.StatusOK)
 	})

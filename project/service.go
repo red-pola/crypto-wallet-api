@@ -39,8 +39,9 @@ func (s *Service) Save(p *entity.Project) (entity.ID, error) {
 }
 
 // Update project
-func (s *Service) Update(p *entity.Project) error {
-	return s.repo.Update(p)
+func (s *Service) Update(id entity.ID, p *entity.Project) error {
+	p.ID = id
+	return s.repo.Update(id, p)
 }
 
 // Delete project

@@ -19,3 +19,38 @@ func StringToID(s string) ID {
 func NewID() ID {
 	return StringToID(bson.NewObjectId().Hex())
 }
+
+// MarshalJSON will marshal ID to Json
+func (i ID) MarshalJSON() ([]byte, error) {
+	return bson.ObjectId(i).MarshalJSON()
+}
+
+// UnmarshalJSON will convert a string to an ID
+func (i *ID) UnmarshalJSON(data []byte) error {
+	s := string(data)
+	s = s[1 : len(s)-1]
+	if bson.IsObjectIdHex(s) {
+		*i = ID(bson.ObjectIdHex(s))
+	}
+
+	return nil
+}
+
+// GetBSON implements bson.Getter.
+func (i ID) GetBSON() (interface{}, error) {
+	if i == "" {
+		return "", nil
+	}
+	return bson.ObjectId(i), nil
+}
+
+// SetBSON implements bson.Setter.
+func (i *ID) SetBSON(raw bson.Raw) error {
+	decoded := new(string)
+	bsonErr := raw.Unmarshal(decoded)
+	if bsonErr == nil {
+		*i = ID(bson.ObjectId(*decoded))
+		return nil
+	}
+	return bsonErr
+}

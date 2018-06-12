@@ -64,8 +64,8 @@ func (i *InMemRepository) Save(project *entity.Project) (entity.ID, error) {
 }
 
 // Update project
-func (i *InMemRepository) Update(project *entity.Project) error {
-	p, err := i.Find(project.ID)
+func (i *InMemRepository) Update(id entity.ID, project *entity.Project) error {
+	p, err := i.Find(id)
 
 	if err != nil {
 		return err

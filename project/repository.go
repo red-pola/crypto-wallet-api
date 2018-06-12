@@ -10,6 +10,6 @@ type Repository interface {
 	FindByName(name string) ([]*entity.Project, error)
 	FindAll() ([]*entity.Project, error)
 	Save(project *entity.Project) (entity.ID, error)
-	Update(project *entity.Project) error
+	Update(id entity.ID, project *entity.Project) error
 	Delete(id entity.ID) error
 }
