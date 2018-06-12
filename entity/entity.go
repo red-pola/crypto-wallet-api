@@ -1,6 +1,10 @@
 package entity
 
-import "gopkg.in/mgo.v2/bson"
+import (
+	"fmt"
+
+	"gopkg.in/mgo.v2/bson"
+)
 
 // ID entity id
 type ID bson.ObjectId
@@ -11,16 +15,23 @@ func (i ID) String() string {
 }
 
 // StringToID convert a string to an ID
-func StringToID(s string) ID {
-	return ID(bson.ObjectIdHex(s))
+func StringToID(s string) (id ID, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("%v", r)
+		}
+	}()
+	id = ID(bson.ObjectIdHex(s))
+	return
 }
 
-// NewID create a new id
-func NewID() ID {
-	return StringToID(bson.NewObjectId().Hex())
+// NewID create a new ID
+func NewID() (id ID) {
+	id, _ = StringToID(bson.NewObjectId().Hex())
+	return
 }
 
-// MarshalJSON will marshal ID to Json
+// MarshalJSON will marshal ID to JSON
 func (i ID) MarshalJSON() ([]byte, error) {
 	return bson.ObjectId(i).MarshalJSON()
 }
