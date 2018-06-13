@@ -75,13 +75,49 @@ $ docker container logs crypto-wallet-api_mongo-db_1
 
 #### Install Go
 
+[Download and Install Go](https://golang.org/doc/install)
+
 #### Setup Go Workspace
+
+Create your Go [workspace](https://golang.org/doc/code.html#Workspaces)
 
 #### Install MongoDB
 
+Using Docker
+
+```
+$ docker container run --name mongodb -d \
+  -e MONGO_INITDB_ROOT_USERNAME=root \
+  -e MONGO_INITDB_ROOT_PASSWORD=password \
+  -p 27017:27017 -v mongo-data:/data/db \
+  mongo:latest
+```
+
+Or [install](https://docs.mongodb.com/manual/installation/) on your local machine
+
 #### Set environment variables
 
+Clone `.env.sample` and named it `.env`
+
 #### Build and Run
+
+```
+$ go run main.go
+```
+
+Or
+
+```
+$ go build
+$ ./crypto-wallet-api
+```
+
+Or
+
+```
+$ go install
+$ crypto-wallet-api
+```
 
 ## API
 
