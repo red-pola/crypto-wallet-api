@@ -54,7 +54,8 @@ Or
 
 ```
 $ docker container exec -it crypto-wallet-api_api_1 sh
-$ docker container exec -it crypto-wallet-api_mongo-db_1 mongo -u root -p password --authenticationDatabase "admin"
+$ docker container exec -it crypto-wallet-api_mongo-db_1 mongo \
+  -u root -p password --authenticationDatabase "admin"
 ```
 
 #### View logs
@@ -131,6 +132,16 @@ $ crypto-wallet-api
 | `/api/v1/projects`            | POST   | Create project                    |
 | `/api/v1/projects/:id`        | PUT    | Update project                    |
 | `/api/v1/projects/:id`        | DELETE | Delete project                    |
+
+## Go Doc
+
+Start document server locally:
+
+```
+$ godoc -http=:6060
+```
+
+Then open `http://localhost:6060/pkg/github.com/red-pola/crypto-wallet-api/project` on web browser to view the documentation of `project` package for example.
 
 ## Troubleshooting
 
